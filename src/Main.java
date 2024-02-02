@@ -6,7 +6,7 @@ public class Main {
     static int columns;
     public static void main(String[] args) {
         Scanner scan=new Scanner(System.in);
-        int[][] matrix=getMatrixFromUser(scan);
+        double[][] matrix=getMatrixFromUser(scan);
 
         //make sure user entered matrix correctly
         System.out.println("\nData you entered :");
@@ -28,7 +28,7 @@ public class Main {
                 else{
                     for(int i=rowIndex+1;i<rows;i++){
                         if(matrix[i][columnIndex]!=0) {
-                            int scalar=(-1*matrix[i][columnIndex])*(1/matrix[rowIndex][columnIndex]);
+                            double scalar=(-1*(matrix[i][columnIndex]))/(matrix[rowIndex][columnIndex]);
                             addToRow(matrix, i, rowIndex, scalar);
                         }
                     }
@@ -39,43 +39,43 @@ public class Main {
                     break;
                 }
             }
-            rowIndex=0;
+            rowIndex=rowWithoutPivot;
             columnIndex++;
         }
     System.out.println("the matrix after Gaussian elimination is:");
     printMatrix(matrix);
     }
-    protected static void printMatrix(int[][] matrix){
-        for(int[] x:matrix){
-            for(int y:x){
+    protected static void printMatrix(double[][] matrix){
+        for(double[] x:matrix){
+            for(double y:x){
                 System.out.print(y+"        ");
             }
             System.out.print("\n");
         }
     }
-    protected static int[][] getMatrixFromUser(Scanner scan){
+    protected static double[][] getMatrixFromUser(Scanner scan){
         //make matrix based on user input
         System.out.println("Enter 2D matrix size : ");
         rows=scan.nextInt();
         columns=scan.nextInt();
 
         System.out.println("Enter elements of matrix : ");
-        int[][] matrix =new int[rows][columns];
+        double[][] matrix =new double[rows][columns];
         for(int i=0; i<rows;i++)
         {
             for(int j=0; j<columns;j++)
             {
-                matrix[i][j]=scan.nextInt();
+                matrix[i][j]=scan.nextDouble();
             }
         }
         return matrix;
     }
-    protected static void addToRow(int[][] matrix, int addTo, int otherRow, int scalar){
+    protected static void addToRow(double[][] matrix, int addTo, int otherRow, double scalar){
         for(int i = 0;i<columns;i++)
             matrix[addTo][i]+= scalar * matrix[otherRow][i];
     }
-    protected static void switchRows(int[][] matrix, int rowOne, int rowTwo){
-        int[] temp=matrix[rowOne].clone();
+    protected static void switchRows(double[][] matrix, int rowOne, int rowTwo){
+        double[] temp=matrix[rowOne].clone();
         for(int i=0;i<columns;i++) {
             matrix[rowOne][i] = matrix[rowTwo][i];
             matrix[rowTwo][i] = temp[i];
