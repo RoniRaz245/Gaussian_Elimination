@@ -32,15 +32,18 @@ public class Main {
                             addToRow(matrix, i, rowIndex, scalar);
                         }
                     }
-                    switchRows(matrix, rowIndex, rowWithoutPivot);
-                    rowWithoutPivot++;
+                    if(rowWithoutPivot<rows) {
+                        switchRows(matrix, rowIndex, rowWithoutPivot);
+                        rowWithoutPivot++;
+                    }
+                    break;
                 }
             }
             rowIndex=0;
             columnIndex++;
         }
-
-
+    System.out.println("the matrix after Gaussian elimination is:");
+    printMatrix(matrix);
     }
     protected static void printMatrix(int[][] matrix){
         for(int[] x:matrix){
